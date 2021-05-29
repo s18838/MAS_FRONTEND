@@ -1,0 +1,177 @@
+#room-reservation-section {
+    width: 1200px;
+    background-color: white;
+    margin: 150px auto;
+    border-radius: 20px;
+    padding-bottom: 25px;
+}
+
+#room-reservation-section > h1 {
+    text-align: center;
+    padding: 20px 0;
+    font-weight: normal;
+    font-size: 25px;
+    position: relative;
+}
+
+#room-reservation-section > ul {
+    display: flex;
+}
+
+.room-reservation-block {
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.room-reservation-block-image,
+#selected-room-block-image {
+    width: 350px;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    transition: transform .1s;
+}
+
+.room-reservation-block-image:hover {
+    transform: scale(1.05);
+}
+
+.room-reservation-block-image > div,
+#selected-room-block-image > div {
+    width: 100%;
+    padding: 35px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.room-reservation-block-image > div > h3,
+#selected-room-block-image > div > h3 {
+    color: white;
+    font-weight: normal;
+    font-size: 40px;
+}
+
+#back-button {
+    position: absolute;
+    left: 25px;
+    color: #0077ff;
+}
+
+#back-button:hover {
+    color: #005eca;
+}
+
+#back-button:active {
+    color: #00499c;
+}
+
+.selected-room-block {
+    display: flex;
+    padding: 25px;
+}
+
+#selected-room {
+    text-align: center;
+    font-size: 25px;
+    padding: 10px 0;
+}
+
+.date-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.check-a-date-block,
+.selected-date-block {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+}
+
+.check-a-date-block {
+    justify-content: center;
+}
+
+.check-a-date-block > p,
+.selected-date-block > p {
+    font-size: 25px;
+    padding: 10px 0;
+}
+
+.check-a-date-block > div {
+    display: flex;
+    align-items: center;
+}
+
+.date-free,
+.date-occupied {
+    font-size: 20px;
+    padding: 0 30px;
+}
+
+.date-free {
+    color: green;
+}
+
+.date-occupied {
+    color: red;
+}
+
+#date-picker,
+#selected-date {
+    margin: 15px 0;
+    padding: 10px;
+    width: 240px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: #DDD;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#date-picker:hover {
+    background-color: #CCC;
+}
+
+.confirmation-block {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 57px;
+}
+
+.confirmation-block > button {
+    width: 250px;
+    padding: 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.confirmation-block > button:hover {
+    background-color: #EEE;
+}
+
+.confirmation-block > button:active {
+    background-color: #DDD;
+}
+
+.react-datepicker__triangle {
+    display: none !important;
+}
+
+.react-datepicker-popper {
+    margin-top: -60px !important;
+}

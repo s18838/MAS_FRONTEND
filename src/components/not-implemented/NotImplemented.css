@@ -1,0 +1,13 @@
+#not-implemented-section {
+    width: 1200px;
+    background-color: white;
+    margin: 150px auto;
+    border-radius: 20px;
+}
+
+#not-implemented-section > h1 {
+    text-align: center;
+    padding: 120px 0;
+    font-weight: normal;
+    font-size: 25px;
+}

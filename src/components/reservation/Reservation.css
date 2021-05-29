@@ -1,0 +1,54 @@
+#reservation-section {
+    width: 1200px;
+    background-color: white;
+    margin: 150px auto;
+    border-radius: 20px;
+    padding-bottom: 25px;
+}
+
+#reservation-section > h1 {
+    text-align: center;
+    padding: 20px 0;
+    font-weight: normal;
+    font-size: 25px;
+}
+
+#reservation-section > ul {
+    display: flex;
+}
+
+.reservation-block {
+    padding: 25px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.reservation-block-image {
+    width: 500px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    transition: transform .1s;
+}
+
+.reservation-block-image:hover {
+    transform: scale(1.05);
+}
+
+.reservation-block-image > div {
+    width: 100%;
+    padding: 35px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.reservation-block-image > div > h3 {
+    color: white;
+    font-weight: normal;
+    font-size: 40px;
+}
