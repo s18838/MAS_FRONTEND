@@ -114,7 +114,6 @@
 .date-free,
 .date-occupied {
     font-size: 20px;
-    padding: 0 30px;
 }
 
 .date-free {
@@ -123,6 +122,13 @@
 
 .date-occupied {
     color: red;
+}
+
+#date-loading-spinner {
+    padding: 0 50px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
 }
 
 #date-picker,
