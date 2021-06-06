@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AccountEnter.css';
 import { Link, useHistory } from 'react-router-dom';
-import { post } from '../../lib/communication';
+import { authenticationService } from '../../_services/authentication.service';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 export default function CreateAccount() {
@@ -19,17 +19,14 @@ export default function CreateAccount() {
         e.preventDefault();
         setError(false);
         setLoading(true);
-        post("http://localhost:7778/accounts/create", {
-            email,
-            name,
-            surname,
-            password
-        }).then(_ => {
-            history.push('/authorize');
-        }, _ => {
-            setError(true);
-            setLoading(false);
-        })
+        authenticationService.register(name, surname, email, password)
+            .then(
+                _ => history.push('/authorize'), 
+                _ => {
+                    setError(true);
+                    setLoading(false);
+                }
+            )
     }
 
 	return (

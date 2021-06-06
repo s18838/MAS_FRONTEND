@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './Menu.css';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import DishCard from './dish/DishCard';
-import { Dish } from '../../lib/types';
-import { get } from '../../lib/communication';
+import { Dish } from '../../_lib/types';
+import { menuService } from '../../_services/menu.service';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 export default function Menu() {
@@ -14,7 +14,7 @@ export default function Menu() {
     const [dishes, setDishes] = useState([] as Dish[])
 
     useEffect(() => {
-        get<Dish[]>('http://localhost:7778/menu')
+        menuService.getMenu()
             .then(data => {
                 setLoading(false);
                 setDishes(data);
@@ -59,7 +59,3 @@ export default function Menu() {
         </>
 	);
 }
-
-
-// ["Ratatouille", "Samosa", "Jalebi", "Phindi", "Bharwa",
-//                          "Panipuri", "Malasa", "Kulche", "Katsu", "Navi"]

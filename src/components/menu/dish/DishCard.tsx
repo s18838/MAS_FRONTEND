@@ -1,7 +1,6 @@
 import React from 'react';
 import './DishCard.css';
-import { Link } from 'react-router-dom';
-import { Dish } from '../../../lib/types';
+import { Dish } from '../../../_lib/types';
 
 type DishCardType = {
     dish: Dish,

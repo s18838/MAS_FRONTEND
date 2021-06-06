@@ -4,7 +4,6 @@ import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	Link
 } from 'react-router-dom';
 import Header from './components/header/Header';
 import Home from './components/home/Home';
@@ -15,11 +14,14 @@ import Reservetion from './components/reservation/Reservation';
 import RoomReservation from './components/reservation/room/RoomReservation';
 import RoomReservationSaved from './components/reservation/room/saved/RoomReservationSaved';
 import NotImplemented from './components/not-implemented/NotImplemented';
+import { PrivateRoute } from './components/private-route/PrivateRoute';
 
 export default function App() {
 	return (
 		<Router>
-			<Header />
+			<Switch>
+				<Header />
+			</Switch>
 			<Switch>
 				<Route path="/not-implemented">
 					<NotImplemented />
@@ -30,9 +32,7 @@ export default function App() {
 				<Route path="/reservation/room/saved">
 					<RoomReservationSaved />
 				</Route>
-				<Route path="/reservation/room">
-					<RoomReservation />
-				</Route>
+				<PrivateRoute path="/reservation/room" component={RoomReservation} />
 				<Route path="/reservation">
 					<Reservetion />
 				</Route>

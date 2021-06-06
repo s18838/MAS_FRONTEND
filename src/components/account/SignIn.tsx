@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AccountEnter.css';
 import { Link, useHistory } from 'react-router-dom';
-import { post } from '../../lib/communication';
+import { authenticationService } from '../../_services/authentication.service';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 export default function SignIn() {
@@ -17,15 +17,14 @@ export default function SignIn() {
         e.preventDefault();
         setError(false);
         setLoading(true);
-        post("http://localhost:7778/accounts/authorize", {
-            email,
-            password
-        }).then(_ => {
-            history.push('/');
-        }, _ => {
-            setError(true);
-            setLoading(false);
-        })
+        authenticationService.authorize(email, password)
+            .then(
+                _ => history.push('/'),
+                _ => {
+                    setError(true);
+                    setLoading(false);
+                }
+            )
     }
 
 	return (

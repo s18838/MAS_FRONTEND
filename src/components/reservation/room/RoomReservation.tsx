@@ -3,8 +3,9 @@ import './RoomReservation.css';
 import { Link, useHistory } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { get, post } from '../../../lib/communication';
-import { Room } from '../../../lib/types';
+import { reservationsService } from '../../../_services/reservations.service';
+import { roomsService } from '../../../_services/rooms.service';
+import { Room } from '../../../_lib/types';
 import SyncLoader from 'react-spinners/SyncLoader';
 import BarLoader from 'react-spinners/BarLoader';
 
@@ -16,10 +17,13 @@ export default function RoomReservation() {
 
     const [room, setRoom] = useState<Room | null>(null);
     const [date, setDate] = useState<Date | null>(null);
+    const [count, setCount] = useState<number | null>(null);
     const [isFree, setIsFree] = useState<boolean | null>(null);
-    const [isConfirmation, setIsConfirmation] = useState(false);
+    const [isDateConfirmed, setIsDateConfirmed] = useState(false);
+    const [isCountConfirmed, setIsCountConfirmed] = useState(false);
     const [loading, setLoading] = useState(true);
     const [dateLoading, setDateLoading] = useState(false);
+
 
     const selectedDate = date && `${date.getDate() < 10 ? '0' : ''}${date.getDate()}.`
         + `${date.getMonth() + 1 < 10 ? '0' : ''}${date.getMonth() + 1}.`
@@ -34,8 +38,14 @@ export default function RoomReservation() {
     );
 
     const handleBack = () => {
-        if (isConfirmation) {
-            setIsConfirmation(false);
+        if (isCountConfirmed) {
+            setIsCountConfirmed(false);
+            return;
+        }
+
+        if (isDateConfirmed) {
+            setCount(null);
+            setIsDateConfirmed(false);
             return;
         }
 
@@ -47,8 +57,18 @@ export default function RoomReservation() {
         }
     }
 
+    const saveReservation = () => {
+        if (date && room && count) {
+            reservationsService.reserve(date, room.id, count)
+                .then(
+                    _ => history.push('/reservation/room/saved'), 
+                    _ => {}
+                );
+        }
+    }
+
     useEffect(() => {
-        get<Room[]>('http://localhost:7778/rooms')
+        roomsService.getRooms()
             .then(data => {
                 setLoading(false);
                 setRooms(data);
@@ -56,10 +76,10 @@ export default function RoomReservation() {
     }, [])
 
     useEffect(() => {
-        if (date) {
+        if (date && room) {
             setIsFree(null);
             setDateLoading(true)
-            post('http://localhost:7778/check', { date: date.toLocaleDateString() })
+            reservationsService.checkDate(date, room.id)
                 .then(_ => {
                     setDateLoading(false);
                     setIsFree(true);
@@ -68,20 +88,20 @@ export default function RoomReservation() {
                     setIsFree(false);
                 });
         }
-    }, [date])
+    }, [date, room])
 
 	return (
 		<section id="room-reservation-section">
             <h1>
                 <Link to={ room !== null ? '/reservation/room' : '/reservation' } 
                     onClick={handleBack} id="back-button">BACK</Link>
-                { room !== null ? (isConfirmation ? 'CONFIRMATION' : 'SELECT A DATE') : 'BOOK A ROOM' }
+                { room !== null ? (isDateConfirmed ? (isCountConfirmed ? 'CONFIRMATION' : 'SELECT COUNT') : 'SELECT A DATE') : 'BOOK A ROOM' }
             </h1>
             {
                 room !== null ? (
                     <div className="selected-room-block">
                         <div>
-                            <p id="selected-room">Selected room:</p>
+                            <p>Selected room:</p>
                             <div id="selected-room-block-image" 
                                 style={{backgroundImage: `url("${room.image}")`}}>
                                 <div>
@@ -89,55 +109,87 @@ export default function RoomReservation() {
                                 </div>
                             </div>
                         </div>
-                        <div className="date-block">
-                            {
-                                isConfirmation ? (
-                                    <>
-                                        <div className="selected-date-block">
+                        <div className="reservation-settings-block">
+                            <div className="reservation-settings-list">
+                                {
+                                    !isDateConfirmed && (
+                                        <div className="settings-block">
+                                            <p>Check a date:</p>
+                                            <div>
+                                                <DatePicker selected={date}
+                                                    disabled={loading} 
+                                                    dateFormat="dd.MM.yyyy"
+                                                    onChange={date => date instanceof Date ? setDate(date) : null} 
+                                                    customInput={<CustomDatePicker />}/>
+                                            </div>
+                                            {
+                                                dateLoading && (
+                                                    <div id="date-loading-spinner">
+                                                        <BarLoader loading={true} width={75} height={5} />
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                isFree != null && (isFree ? 
+                                                (<p className="date-free">FREE</p>) : 
+                                                (<p className="date-occupied">OCCUPIED</p>))
+                                            }
+                                        </div>
+                                    )
+                                }
+                                {
+                                    isDateConfirmed && (
+                                        <div className="settings-block">
                                             <p>Selected date:</p>
-                                            <div id="selected-date">
+                                            <div className="value-block">
                                                 { selectedDate }
                                             </div>
                                         </div>
-                                        <div className="confirmation-block">
-                                            <button onClick={_ => history.push('/reservation/room/saved')}>
-                                                CONFIRM
-                                            </button>
+                                    )
+                                }
+                                {
+                                    isDateConfirmed && !isCountConfirmed && (
+                                        <div className="settings-block">
+                                            <p>Number of people:</p>
+                                            <input className="value-block" type="number" 
+                                                value={count ?? 0}
+                                                onChange={e => 
+                                                    parseInt(e.target.value) ? setCount(parseInt(e.target.value)) : setCount(null)
+                                                }/>
                                         </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className="check-a-date-block">
-                                            <p>Check a date:</p>
-                                            <div>
-                                                <div>
-                                                    <DatePicker selected={date}
-                                                        disabled={loading} 
-                                                        dateFormat="dd.MM.yyyy"
-                                                        onChange={date => date instanceof Date ? setDate(date) : null} 
-                                                        customInput={<CustomDatePicker />}/>
-                                                </div>
-                                                <div id="date-loading-spinner">
-                                                    {
-                                                        isFree != null && (isFree ? 
-                                                        (<p className="date-free">FREE</p>) : 
-                                                        (<p className="date-occupied">OCCUPIED</p>))
-                                                    }
-                                                    <BarLoader loading={dateLoading} width={75} height={5} />
-                                                </div>
+                                    )
+                                }
+                                {
+                                    isCountConfirmed && (
+                                        <div className="settings-block">
+                                            <p>Number of people:</p>
+                                            <div className="value-block">
+                                                { count }
                                             </div>
                                         </div>
-                                        <div className="confirmation-block">
-                                            {
-                                                date && isFree &&
-                                                <button onClick={_ => setIsConfirmation(true)}>
-                                                    CONFIRM DATE
-                                                </button>
-                                            }
-                                        </div>
-                                    </>
-                                )
-                            }
+                                    )
+                                }
+                            </div>
+                            <div className="confirmation-block">
+                                {
+                                    date && isFree && !isDateConfirmed &&
+                                        <button onClick={_ => setIsDateConfirmed(true)}>
+                                            CONFIRM DATE
+                                        </button>
+
+                                }
+                                {
+                                    count !== null && (isCountConfirmed ? (
+                                        <button onClick={saveReservation}>
+                                            CONFIRM
+                                        </button>
+                                    ) : (
+                                        <button onClick={_ => setIsCountConfirmed(true)}>
+                                            CONFIRM COUNT
+                                        </button>
+                                    ))
+                                }
+                            </div>
                         </div>
                     </div>
                 ) : (

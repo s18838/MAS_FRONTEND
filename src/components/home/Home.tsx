@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css'
-import { Link, useHistory } from 'react-router-dom';
-import { News } from '../../lib/types';
-import { get } from '../../lib/communication';
+import { useHistory } from 'react-router-dom';
+import { News } from '../../_lib/types';
+import { homeService } from '../../_services/home.service';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        get<News[]>('http://localhost:7778/home')
+        homeService.getNews()
             .then(data => {
                 setLoading(false);
                 setNews(data);

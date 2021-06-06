@@ -75,40 +75,28 @@
     padding: 25px;
 }
 
-#selected-room {
+.selected-room-block p {
     text-align: center;
-    font-size: 25px;
     padding: 10px 0;
+    font-size: 25px;
 }
 
-.date-block {
+.reservation-settings-block {
     width: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.check-a-date-block,
-.selected-date-block {
-    height: 100%;
+.reservation-settings-list {
+    display: flex;
+}
+
+.reservation-settings-list > .settings-block {
     display: flex;
     flex-direction: column;
-    padding: 0 50px;
-}
-
-.check-a-date-block {
-    justify-content: center;
-}
-
-.check-a-date-block > p,
-.selected-date-block > p {
-    font-size: 25px;
-    padding: 10px 0;
-}
-
-.check-a-date-block > div {
-    display: flex;
-    align-items: center;
+    margin-left: 75px;
 }
 
 .date-free,
@@ -125,15 +113,14 @@
 }
 
 #date-loading-spinner {
-    padding: 0 50px;
-    width: 100px;
+    height: 50px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 #date-picker,
-#selected-date {
-    margin: 15px 0;
+.value-block {
     padding: 10px;
     width: 240px;
     box-sizing: border-box;
@@ -179,5 +166,5 @@
 }
 
 .react-datepicker-popper {
-    margin-top: -60px !important;
+    margin-top: -45px !important;
 }
