@@ -3,3 +3,58 @@
     justify-content: center;
     padding: 150px 0;
 }
+
+#back-button {
+    position: absolute;
+    left: 25px;
+    color: #0077ff;
+    cursor: pointer;
+}
+
+#back-button:hover {
+    color: #005eca;
+}
+
+#back-button:active {
+    color: #00499c;
+}
+
+
+.rooms-list-item > .block-image,
+#selected-room-block-image {
+    width: 350px;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    transition: transform .1s;
+}
+
+.rooms-list-item > .block-image > div,
+#selected-room-block-image > div {
+    width: 100%;
+    padding: 35px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.rooms-list-item > .block-image > div > h3,
+#selected-room-block-image > div > h3 {
+    color: white;
+    font-weight: normal;
+    font-size: 40px;
+}
+
+.selected-room-block {
+    display: flex;
+    padding: 25px;
+}
+
+.selected-room-block p {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 25px;
+}

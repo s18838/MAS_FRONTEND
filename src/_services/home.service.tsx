@@ -8,5 +8,5 @@ export const homeService = {
 
 function getNews(): Promise<News[]> {
     return fetch(`${Config.HOST}/api/home`)
-        .then(handleResponse)
+        .then(data => handleResponse<News[]>(data));
 };

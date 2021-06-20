@@ -8,5 +8,5 @@ export const menuService = {
 
 function getMenu(): Promise<Dish[]> {
     return fetch(`${Config.HOST}/api/menu`)
-        .then(handleResponse)
+        .then(data => handleResponse<Dish[]>(data));
 };

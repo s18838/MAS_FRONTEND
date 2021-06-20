@@ -1,0 +1,104 @@
+#rooms-list {
+    display: flex;
+}
+
+.rooms-list-item {
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.rooms-list-item > .block-image:hover {
+    transform: scale(1.05);
+}
+
+.reservation-settings-block {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.reservation-settings-list {
+    display: flex;
+}
+
+.reservation-settings-list > .settings-block {
+    display: flex;
+    flex-direction: column;
+    margin-left: 75px;
+    height: 150px;
+}
+
+.date-free,
+.date-occupied {
+    font-size: 20px;
+}
+
+.date-free {
+    color: green;
+}
+
+.date-occupied {
+    color: red;
+}
+
+#date-loading-spinner {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#date-picker,
+.value-block {
+    padding: 10px;
+    width: 240px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: #DDD;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#date-picker:hover {
+    background-color: #CCC;
+}
+
+.confirmation-block {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 57px;
+    padding: 0 25px;
+}
+
+.confirmation-block > button {
+    width: 250px;
+    padding: 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.confirmation-block > button:hover {
+    background-color: #EEE;
+}
+
+.confirmation-block > button:active {
+    background-color: #DDD;
+}
+
+.react-datepicker__triangle {
+    display: none !important;
+}
+
+.react-datepicker-popper {
+    margin-top: -45px !important;
+}
+

@@ -19,10 +19,10 @@ function register(name: string, surname: string, email: string, password: string
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, surname, email, password })
-    }
+    };
 
     return fetch(`${Config.HOST}/api/accounts/create`, requestOptions)
-        .then(handleResponse)
+        .then(handleResponse);
 };
 
 function authorize(email: string, password: string) {
@@ -30,7 +30,7 @@ function authorize(email: string, password: string) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
-    }
+    };
 
     return fetch(`${Config.HOST}/api/accounts/authorize`, requestOptions)
         .then(handleResponse)
@@ -39,10 +39,10 @@ function authorize(email: string, password: string) {
             currentUserSubject.next(user)
 
             return user
-        })
+        });
 };
 
 function logout() {
-    localStorage.removeItem('currentUser')
-    currentUserSubject.next(null)
+    localStorage.removeItem('currentUser');
+    currentUserSubject.next(null);
 };

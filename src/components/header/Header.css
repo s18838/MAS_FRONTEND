@@ -7,7 +7,7 @@ header {
     box-shadow: 0px 5px 20px black;
     position: fixed;
     top: 0;
-    z-index: 9999;
+    z-index: 999;
 }
 
 header > ul {
@@ -30,4 +30,18 @@ header > ul > a:hover {
 
 header > ul > a:active {
     background-color: #222;
+}
+
+.MuiPaper-root {
+    width: 225px;
+}
+
+.MuiList-root > p {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.MuiList-root > a {
+    color: black;
 }

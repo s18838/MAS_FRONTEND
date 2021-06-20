@@ -15,6 +15,7 @@ import RoomReservation from './components/reservation/room/RoomReservation';
 import RoomReservationSaved from './components/reservation/room/saved/RoomReservationSaved';
 import NotImplemented from './components/not-implemented/NotImplemented';
 import { PrivateRoute } from './components/private-route/PrivateRoute';
+import ReservationHistory from './components/reservation/history/ReservationHistory';
 
 export default function App() {
 	return (
@@ -33,6 +34,7 @@ export default function App() {
 					<RoomReservationSaved />
 				</Route>
 				<PrivateRoute path="/reservation/room" component={RoomReservation} />
+				<PrivateRoute path="/reservation/history" component={ReservationHistory} />
 				<Route path="/reservation">
 					<Reservetion />
 				</Route>
