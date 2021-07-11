@@ -97,7 +97,7 @@ export default function ReservationHistory() {
                         </ul>
                     </div>
                 :
-                    rooms.length > 0 ?
+                    rooms.length > 0 || loading ?
                         <RoomsList rooms={rooms} loading={loading} setRoom={setRoom} />
                     : <p id="empty">You haven't had any reservations</p>
             }
